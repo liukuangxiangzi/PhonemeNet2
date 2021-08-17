@@ -1,5 +1,4 @@
 
-#prprocess Y
 
 import os
 import h5py
@@ -19,8 +18,7 @@ from tqdm import tqdm
 import argparse
 
 
-#python train.py -x path-of-audio-feature-file-for-training, -X path-of-audio-feature-file-for-testing, -y path-of-phoneme-file-for-training -Y path-of-phoneme-file-for-testing -o path-of-saving-model
-#e.g. python train.py -x data/audio_feature_train.npy -X data/audio_feature_test.npy -y data/train_phoneme_label_13.npy -Y data/test_phoneme_label_13.npy -o model/audio2pho_model_mfa13label_ep300_1e-4_32.h5
+
 
 def h5_fast_read(reading_path, key_name):
     f= h5py.File(reading_path, 'r')
@@ -33,11 +31,9 @@ def h5_fast_read(reading_path, key_name):
 
 def labelcategorical():
     label_train = h5_fast_read('data/y_34_50_train.h5', 'y_34_50_train')
-    #label_train = np.array(np.load(args.train_y))  #train_phoneme_label14H.npy
     label_test = h5_fast_read('data/y_34_50_test.h5', 'y_34_50_test')
 
     # label_train = label_train.reshape(label_train.shape[0]*label_train.shape[1])
-    # print(label_train)
     print(label_train.shape)
     #label_test = np.array(np.load(args.test_Y))
 
@@ -54,10 +50,8 @@ def labelcategorical():
 def load_dataset(transform = False, timesteps=5):
     # load all x
     trainX = h5_fast_read('data/x_34_50_train.h5', 'x_34_50_train')
-    #trainX = np.load('x_train.h5')  #trainX.shape = (753, 75, 768)
     print('trainX.shape', trainX.shape)
     testX = h5_fast_read('data/x_34_50_test.h5', 'x_34_50_test')
-    #testX = np.load(args.test_X)   #testX.shape = (191, 75, 768)
     print('testX.shape', testX.shape)
     # load all y
     trainy, testy = labelcategorical()
@@ -161,7 +155,7 @@ def run_model():
     # trainy = trainy[:500, :, :]
     # testX = testX[:500, :, :]
     # testy = testy[:500, :, :]
-    print('testtttttt', trainX.shape, testX.shape)
+    #print('test', trainX.shape, testX.shape)
 
 
     verbose, epochs, batch_size = 0, 200, 32
