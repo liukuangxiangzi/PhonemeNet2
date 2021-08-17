@@ -13,14 +13,6 @@ def h5_fast_read(reading_path, key_name):
     # f.close()
     return ds
 
-# path_x_vali = 'data/X_LJ.h5'
-# path_y_vali = 'data/y_LJ.h5'
-#
-# x_vali = h5_fast_read(path_x_vali, 'data')
-# print(x_vali.shape)
-# y_vali = h5_fast_read(path_y_vali, 'y_LJ')
-# y_vali = to_categorical(y_vali)
-# print(y_vali)
 
 def lstm_data_transform_x(x_data, num_steps):
 
@@ -96,11 +88,13 @@ print(trainY.shape, trainX.shape)
 # trainX,trainY = lstm_data_transform(trainX,trainY,timesteps)
 model = load_model('model/audio2pho_model_ep200_1e-4_32_34_50khz_winsize50.h5') # #audio2pho_model_ep300_1e-4_32_33sub.h5
 
-#results = model.predict(trainX)
+
 results = model.evaluate(trainX, trainY)
 print("test loss, test acc:", results)
+
+
+#see predicted detail
+#results = model.predict(trainX)
 #print(results.shape)
 #print(np.argmax(results,axis=2))
 
-#ep300: [0.3196505904197693, 0.9066666960716248]
-#ep200: [0.30473992228507996, 0.9066666960716248]
